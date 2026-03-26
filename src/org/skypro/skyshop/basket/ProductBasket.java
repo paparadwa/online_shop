@@ -38,9 +38,13 @@ public class ProductBasket {
 
     public void printBasket() {
         int notFree = 0;
+        int specialProductsNum = 0;
         for (Product product : products) {
             if (product != null) {
-                System.out.println(product.getName() + ": " + product.getPrice());
+                System.out.println(product);
+                if (product.isSpecial()) {
+                    specialProductsNum++;
+                }
                 notFree++;
             }
         }
@@ -48,6 +52,7 @@ public class ProductBasket {
             System.out.println("В корзине пусто");
         } else {
             System.out.println("Итого: " + this.totalCost());
+            System.out.println("Специальных товаров: " + specialProductsNum);
         }
     }
 
