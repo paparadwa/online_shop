@@ -1,10 +1,13 @@
 package org.skypro.skyshop;
 
+import org.skypro.skyshop.article.Article;
 import org.skypro.skyshop.basket.ProductBasket;
 import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.SearchEngine;
+import org.skypro.skyshop.search.Searchable;
 
 public class App {
     public static void separate(){
@@ -38,5 +41,16 @@ public class App {
         System.out.println(productBasket1.totalCost()); //9
         separate();
         System.out.println(productBasket1.checkProduct("Чебурек")); //10
+        separate();
+        Article article1 = new Article("Помидор", "Красный овощ");
+        Article article2 = new Article("Огурец", "Зелёный овощ");
+        Article article3 = new Article("Перец", "Жёлтый/зелёный/красный овощ");
+        Article article4 = new Article("Морковь", "Оранжевый овощ");
+        SearchEngine searchEngine = new SearchEngine(new Searchable[]{product1, product2, product3, product4, product5, product6, article1, article2, article3, article4}, 10);
+        searchEngine.search("о");
+        searchEngine.search("Помидор");
+        searchEngine.search("р");
+        searchEngine.search("к");
+        searchEngine.search("potato");
     }
 }
