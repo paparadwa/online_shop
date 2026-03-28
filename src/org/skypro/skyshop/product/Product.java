@@ -28,7 +28,7 @@ public abstract class Product implements Searchable {
     }
 
     @Override
-    public void getStringRepresentation() {
-        Searchable.super.getStringRepresentation();
+    public String getStringRepresentation() {
+        return Searchable.super.getStringRepresentation();
     }
 }

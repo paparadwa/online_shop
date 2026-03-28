@@ -13,7 +13,7 @@ public class Article implements Searchable {
 
     @Override
     public String toString() {
-        return title + '\'' + content;
+        return title + "\n" + content;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Article implements Searchable {
     }
 
     @Override
-    public void getStringRepresentation() {
-        Searchable.super.getStringRepresentation();
+    public String getStringRepresentation() {
+        return Searchable.super.getStringRepresentation();
     }
 }
