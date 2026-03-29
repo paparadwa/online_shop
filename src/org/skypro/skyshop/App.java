@@ -46,8 +46,23 @@ public class App {
         Article article2 = new Article("Огурец", "Зелёный овощ");
         Article article3 = new Article("Перец", "Жёлтый/зелёный/красный овощ");
         Article article4 = new Article("Морковь", "Оранжевый овощ");
-        SearchEngine searchEngine = new SearchEngine(new Searchable[]{product1, product2, product3, product4, product5, product6, article1, article2, article3, article4}, 10);
+        System.out.println(article1);
+        separate();
+        SearchEngine searchEngine = new SearchEngine(new Searchable[]{}, 10);
+        searchEngine.add(product1);
+        searchEngine.add(product2);
+        searchEngine.add(product3);
+        searchEngine.add(product4);
+        searchEngine.add(product5);
+        searchEngine.add(product6);
+        searchEngine.add(article1);
+        searchEngine.add(article2);
+        searchEngine.add(article3);
+        searchEngine.add(article4);
+        searchEngine.add(product1); //проверка
+        separate();
         searchEngine.search("о");
+        searchEngine.search("h");
         searchEngine.search("Помидор");
         searchEngine.search("р");
         searchEngine.search("к");
