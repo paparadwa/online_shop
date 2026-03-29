@@ -6,13 +6,15 @@ import org.skypro.skyshop.product.DiscountedProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 public class App {
-    public static void separate(){
+    public static void separate() {
         System.out.println("----------------------------------------------------------");
     }
+
     public static void main(String[] args) {
         DiscountedProduct product1 = new DiscountedProduct("Помидор", 20, 5); //1
         FixPriceProduct product2 = new FixPriceProduct("Огурец");
@@ -67,5 +69,61 @@ public class App {
         searchEngine.search("р");
         searchEngine.search("к");
         searchEngine.search("potato");
+        separate(); //дз по исключениям
+        try {
+            SimpleProduct excProduct1 = new SimpleProduct(null, 10);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.toString());
+        }
+        try {
+            SimpleProduct excProduct1 = new SimpleProduct("Чебурек", 0);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.toString());
+        }
+        try {
+            DiscountedProduct excProduct1 = new DiscountedProduct(null, 10, 1);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.toString());
+        }
+        try {
+            DiscountedProduct excProduct1 = new DiscountedProduct("Чебурек", 0, 1);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.toString());
+        }
+        try {
+            DiscountedProduct excProduct1 = new DiscountedProduct("Чебурек", 10, 101);
+        } catch (IllegalArgumentException e) {
+            System.out.println(e.toString());
+        }
+        separate();
+        try {
+            System.out.println(searchEngine.searchTheMostSimilar("помидор"));
+        } catch (BestResultNotFound e){
+            System.out.println(e.toString());
+        }
+        try {
+            System.out.println(searchEngine.searchTheMostSimilar("о"));
+        } catch (BestResultNotFound e){
+            System.out.println(e.toString());
+        }
+        try {
+            System.out.println(searchEngine.searchTheMostSimilar(null));
+        } catch (BestResultNotFound e){
+            System.out.println(e.toString());
+        }
+        try {
+            System.out.println(searchEngine.searchTheMostSimilar(""));
+        } catch (BestResultNotFound e){
+            System.out.println(e.toString());
+        }
+        try {
+            System.out.println(searchEngine.searchTheMostSimilar("hello"));
+        } catch (BestResultNotFound e){
+            System.out.println(e.toString());
+        }try {
+            System.out.println(searchEngine.searchTheMostSimilar("h"));
+        } catch (BestResultNotFound e){
+            System.out.println(e.toString());
+        }
     }
 }
