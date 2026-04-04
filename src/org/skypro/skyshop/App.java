@@ -10,6 +10,8 @@ import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
+import java.util.LinkedList;
+
 public class App {
     public static void separate() {
         System.out.println("----------------------------------------------------------");
@@ -22,7 +24,7 @@ public class App {
         SimpleProduct product4 = new SimpleProduct("Морковь", 18);
         SimpleProduct product5 = new SimpleProduct("Чеснок", 17);
         SimpleProduct product6 = new SimpleProduct("Лук", 13);
-        ProductBasket productBasket1 = new ProductBasket(new Product[5]);
+        ProductBasket productBasket1 = new ProductBasket(new LinkedList<>());
         productBasket1.addProduct(product1);
         productBasket1.addProduct(product2);
         productBasket1.addProduct(product3);
@@ -37,7 +39,7 @@ public class App {
         System.out.println(productBasket1.checkProduct("ЧЕСНОК")); //5
         System.out.println(productBasket1.checkProduct("Чебурек")); //6
         separate();
-        productBasket1.clearBasket(); //7
+        //productBasket1.clearBasket(); //7
         productBasket1.printBasket(); //8
         separate();
         System.out.println(productBasket1.totalCost()); //9
@@ -50,7 +52,7 @@ public class App {
         Article article4 = new Article("Морковь", "Оранжевый овощ");
         System.out.println(article1);
         separate();
-        SearchEngine searchEngine = new SearchEngine(new Searchable[]{}, 10);
+        SearchEngine searchEngine = new SearchEngine(new LinkedList<>());
         searchEngine.add(product1);
         searchEngine.add(product2);
         searchEngine.add(product3);
@@ -61,8 +63,7 @@ public class App {
         searchEngine.add(article2);
         searchEngine.add(article3);
         searchEngine.add(article4);
-        searchEngine.add(product1); //проверка
-        separate();
+        searchEngine.add(product1);
         searchEngine.search("о");
         searchEngine.search("h");
         searchEngine.search("Помидор");
@@ -98,32 +99,42 @@ public class App {
         separate();
         try {
             System.out.println(searchEngine.searchTheMostSimilar("помидор"));
-        } catch (BestResultNotFound e){
+        } catch (BestResultNotFound e) {
             System.out.println(e.toString());
         }
         try {
             System.out.println(searchEngine.searchTheMostSimilar("о"));
-        } catch (BestResultNotFound e){
+        } catch (BestResultNotFound e) {
             System.out.println(e.toString());
         }
         try {
             System.out.println(searchEngine.searchTheMostSimilar(null));
-        } catch (BestResultNotFound e){
+        } catch (BestResultNotFound e) {
             System.out.println(e.toString());
         }
         try {
             System.out.println(searchEngine.searchTheMostSimilar(""));
-        } catch (BestResultNotFound e){
+        } catch (BestResultNotFound e) {
             System.out.println(e.toString());
         }
         try {
             System.out.println(searchEngine.searchTheMostSimilar("hello"));
-        } catch (BestResultNotFound e){
-            System.out.println(e.toString());
-        }try {
-            System.out.println(searchEngine.searchTheMostSimilar("h"));
-        } catch (BestResultNotFound e){
+        } catch (BestResultNotFound e) {
             System.out.println(e.toString());
         }
+        try {
+            System.out.println(searchEngine.searchTheMostSimilar("h"));
+        } catch (BestResultNotFound e) {
+            System.out.println(e.toString());
+        }
+        //дз. Java Collections Framework: List
+        System.out.println(productBasket1.removeByName("Помидор"));
+        productBasket1.printBasket();
+        if (productBasket1.removeByName("Эклер").isEmpty()) {
+            System.out.println("Список пуст");
+        } else {
+            System.out.println(productBasket1.removeByName("Эклер"));
+        }
+        productBasket1.printBasket();
     }
 }
