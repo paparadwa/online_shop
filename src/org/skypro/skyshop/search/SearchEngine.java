@@ -1,45 +1,29 @@
 package org.skypro.skyshop.search;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 public class SearchEngine {
-    private Searchable[] elementsForSearch;
+    private LinkedList<Searchable> elementsForSearch;
 
-    public SearchEngine(Searchable[] elementsForSearch, int size) {
-        this.elementsForSearch = Arrays.copyOf(elementsForSearch, size);
+    public SearchEngine(LinkedList<Searchable> elementsForSearch) {
+        this.elementsForSearch = elementsForSearch;
     }
 
     public void add(Searchable product) {
-        int notFree = 0;
-        for (int i = 0; i < this.elementsForSearch.length; i++) {
-            if (this.elementsForSearch[i] == null) {
-                this.elementsForSearch[i] = product;
-                break;
-            } else {
-                notFree++;
-            }
-        }
-        if (notFree == this.elementsForSearch.length) {
-            System.out.println("Невозможно добавить продукт");
-        }
+        this.elementsForSearch.add(product);
     }
 
     public void search(String forSearch) {
-        int max = 5;
-        int j = 0;
-        Searchable[] resultArray = new Searchable[max];
+        List<Searchable> resultArray = new ArrayList<>();
         for (Searchable search : this.elementsForSearch) {
-            if (max > 0) {
-                if (search != null && search.searchTerm().contains(forSearch)) {
-                    resultArray[j] = search;
-                    max--;
-                    j++;
-                }
-            } else {
-                break;
+            if (search != null && search.searchTerm().contains(forSearch)) {
+                resultArray.add(search);
             }
         }
-        System.out.println(Arrays.toString(resultArray));
+        System.out.println(resultArray);
     }
 
     private int calculateOccurrencesOfSubstring(Searchable product, String substring) {
