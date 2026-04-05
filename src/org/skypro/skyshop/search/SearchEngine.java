@@ -1,5 +1,4 @@
 package org.skypro.skyshop.search;
-
 import java.util.*;
 
 public class SearchEngine {

@@ -71,7 +71,7 @@ public class App {
         System.out.println("searchEngine.search(\"р\") = " + searchEngine.search("р").values());
         System.out.println("searchEngine.search(\"к\") = " + searchEngine.search("к").values());
         System.out.println("searchEngine.search(\"potato\") = " + searchEngine.search("potato").values());
-        separate(); //дз по исключениям
+        separate();
         try {
             SimpleProduct excProduct1 = new SimpleProduct(null, 10);
         } catch (IllegalArgumentException e) {
