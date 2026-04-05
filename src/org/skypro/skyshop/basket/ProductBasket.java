@@ -5,20 +5,20 @@ import org.skypro.skyshop.product.Product;
 import java.util.*;
 
 public class ProductBasket {
-    private LinkedList<Product> products;
+    private HashMap<String, List<Product>> products;
 
-    public ProductBasket(LinkedList<Product> products) {
+    public ProductBasket(HashMap<String, List<Product>> products) {
         this.products = products;
     }
 
     public void addProduct(Product product) {
-        this.products.add(product);
+        products.computeIfAbsent(product.getName(), k -> new ArrayList<>()).add(product);
     }
 
     public int totalCost() {
         int amount = 0;
-        for (Product product : products) {
-            if (product != null) {
+        for (List<Product> productsList : products.values()) {
+            for (Product product : productsList) {
                 amount += product.getPrice();
             }
         }
@@ -26,18 +26,16 @@ public class ProductBasket {
     }
 
     public void printBasket() {
-        int notFree = 0;
         int specialProductsNum = 0;
-        for (Product product : products) {
-            if (product != null) {
+        for (List<Product> productsList : products.values()) {
+            for (Product product : productsList) {
                 System.out.println(product);
                 if (product.isSpecial()) {
                     specialProductsNum++;
                 }
-                notFree++;
             }
         }
-        if (notFree == 0) {
+        if (this.products.isEmpty()) {
             System.out.println("В корзине пусто");
         } else {
             System.out.println("Итого: " + this.totalCost());
@@ -46,20 +44,16 @@ public class ProductBasket {
     }
 
     public boolean checkProduct(String name) {
-        int notFree = 0;
         boolean flag = false;
-        for (Product product : products) {
-            if (product != null) {
+        for (List<Product> productsList : products.values()) {
+            for (Product product : productsList) {
                 if (product.getName().equalsIgnoreCase(name)) {
-                    notFree++;
                     flag = true;
                     break;
-                } else {
-                    notFree++;
                 }
             }
         }
-        if (notFree == 0) {
+        if (this.products.isEmpty()) {
             flag = false;
         }
         return flag;
@@ -71,16 +65,10 @@ public class ProductBasket {
 
     public List<Product> removeByName(String name) {
         List<Product> removedProducts = new ArrayList<>();
-        Iterator<Product> iterator = this.products.iterator();
-
-        while (iterator.hasNext()) {
-            Product element = iterator.next();
-            if (element.getName().equalsIgnoreCase(name)) {
-                removedProducts.add(element);
-                iterator.remove();
-            }
+        if (products.containsKey(name)) {
+            removedProducts.addAll(products.get(name));
+            products.remove(name);
         }
-
         return removedProducts;
     }
 }

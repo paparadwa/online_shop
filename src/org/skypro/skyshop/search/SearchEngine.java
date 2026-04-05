@@ -1,9 +1,6 @@
 package org.skypro.skyshop.search;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class SearchEngine {
     private LinkedList<Searchable> elementsForSearch;
@@ -16,14 +13,14 @@ public class SearchEngine {
         this.elementsForSearch.add(product);
     }
 
-    public void search(String forSearch) {
-        List<Searchable> resultArray = new ArrayList<>();
+    public TreeMap<String, Searchable> search(String forSearch) {
+        TreeMap<String, Searchable> result = new TreeMap<>();
         for (Searchable search : this.elementsForSearch) {
             if (search != null && search.searchTerm().contains(forSearch)) {
-                resultArray.add(search);
+                result.put(search.searchTerm(), search);
             }
         }
-        System.out.println(resultArray);
+        return result;
     }
 
     private int calculateOccurrencesOfSubstring(Searchable product, String substring) {
