@@ -10,6 +10,7 @@ import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 
 public class App {
@@ -24,7 +25,7 @@ public class App {
         SimpleProduct product4 = new SimpleProduct("Морковь", 18);
         SimpleProduct product5 = new SimpleProduct("Чеснок", 17);
         SimpleProduct product6 = new SimpleProduct("Лук", 13);
-        ProductBasket productBasket1 = new ProductBasket(new LinkedList<>());
+        ProductBasket productBasket1 = new ProductBasket(new HashMap<>());
         productBasket1.addProduct(product1);
         productBasket1.addProduct(product2);
         productBasket1.addProduct(product3);
@@ -64,13 +65,13 @@ public class App {
         searchEngine.add(article3);
         searchEngine.add(article4);
         searchEngine.add(product1);
-        searchEngine.search("о");
-        searchEngine.search("h");
-        searchEngine.search("Помидор");
-        searchEngine.search("р");
-        searchEngine.search("к");
-        searchEngine.search("potato");
-        separate(); //дз по исключениям
+        System.out.println("searchEngine.search(\"о\") = " + searchEngine.search("о").values());
+        System.out.println("searchEngine.search(\"h\") = " + searchEngine.search("h").values());
+        System.out.println("searchEngine.search(\"Помидор\") = " + searchEngine.search("Помидор").values());
+        System.out.println("searchEngine.search(\"р\") = " + searchEngine.search("р").values());
+        System.out.println("searchEngine.search(\"к\") = " + searchEngine.search("к").values());
+        System.out.println("searchEngine.search(\"potato\") = " + searchEngine.search("potato").values());
+        separate();
         try {
             SimpleProduct excProduct1 = new SimpleProduct(null, 10);
         } catch (IllegalArgumentException e) {
@@ -127,14 +128,21 @@ public class App {
         } catch (BestResultNotFound e) {
             System.out.println(e.toString());
         }
+        separate();
         //дз. Java Collections Framework: List
         System.out.println(productBasket1.removeByName("Помидор"));
+        separate();
         productBasket1.printBasket();
+        separate();
         if (productBasket1.removeByName("Эклер").isEmpty()) {
             System.out.println("Список пуст");
         } else {
             System.out.println(productBasket1.removeByName("Эклер"));
         }
+        separate();
+        productBasket1.printBasket();
+        separate();
+        productBasket1.clearBasket();
         productBasket1.printBasket();
     }
 }
