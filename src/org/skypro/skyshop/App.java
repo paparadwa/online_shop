@@ -11,7 +11,8 @@ import org.skypro.skyshop.search.SearchEngine;
 import org.skypro.skyshop.search.Searchable;
 
 import java.util.HashMap;
-import java.util.LinkedList;
+import java.util.HashSet;
+
 
 public class App {
     public static void separate() {
@@ -53,7 +54,7 @@ public class App {
         Article article4 = new Article("Морковь", "Оранжевый овощ");
         System.out.println(article1);
         separate();
-        SearchEngine searchEngine = new SearchEngine(new LinkedList<>());
+        SearchEngine searchEngine = new SearchEngine(new HashSet<>());
         searchEngine.add(product1);
         searchEngine.add(product2);
         searchEngine.add(product3);
@@ -65,12 +66,12 @@ public class App {
         searchEngine.add(article3);
         searchEngine.add(article4);
         searchEngine.add(product1);
-        System.out.println("searchEngine.search(\"о\") = " + searchEngine.search("о").values());
-        System.out.println("searchEngine.search(\"h\") = " + searchEngine.search("h").values());
-        System.out.println("searchEngine.search(\"Помидор\") = " + searchEngine.search("Помидор").values());
-        System.out.println("searchEngine.search(\"р\") = " + searchEngine.search("р").values());
-        System.out.println("searchEngine.search(\"к\") = " + searchEngine.search("к").values());
-        System.out.println("searchEngine.search(\"potato\") = " + searchEngine.search("potato").values());
+        System.out.println("searchEngine.search(\"о\") = " + searchEngine.search("о"));
+        System.out.println("searchEngine.search(\"h\") = " + searchEngine.search("h"));
+        System.out.println("searchEngine.search(\"Помидор\") = " + searchEngine.search("Помидор"));
+        System.out.println("searchEngine.search(\"р\") = " + searchEngine.search("р"));
+        System.out.println("searchEngine.search(\"к\") = " + searchEngine.search("к"));
+        System.out.println("searchEngine.search(\"potato\") = " + searchEngine.search("potato"));
         separate();
         try {
             SimpleProduct excProduct1 = new SimpleProduct(null, 10);

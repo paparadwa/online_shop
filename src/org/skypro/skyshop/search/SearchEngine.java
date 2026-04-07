@@ -1,10 +1,11 @@
 package org.skypro.skyshop.search;
+
 import java.util.*;
 
 public class SearchEngine {
-    private LinkedList<Searchable> elementsForSearch;
+    private HashSet<Searchable> elementsForSearch;
 
-    public SearchEngine(LinkedList<Searchable> elementsForSearch) {
+    public SearchEngine(HashSet<Searchable> elementsForSearch) {
         this.elementsForSearch = elementsForSearch;
     }
 
@@ -12,14 +13,28 @@ public class SearchEngine {
         this.elementsForSearch.add(product);
     }
 
-    public TreeMap<String, Searchable> search(String forSearch) {
-        TreeMap<String, Searchable> result = new TreeMap<>();
+    public TreeSet<Searchable> search(String forSearch) {
+        TreeSet<Searchable> result = new TreeSet<>(new SearchComparator());
         for (Searchable search : this.elementsForSearch) {
             if (search != null && search.searchTerm().contains(forSearch)) {
-                result.put(search.searchTerm(), search);
+                result.add(search);
             }
         }
         return result;
+    }
+
+    private static class SearchComparator implements Comparator<Searchable> {
+        @Override
+        public int compare(Searchable o1, Searchable o2) {
+            int sizeO1 = o1.searchTerm().length();
+            int sizeO2 = o2.searchTerm().length();
+            int sizeComparisonResult = Integer.compare(sizeO1, sizeO2);
+            if (sizeComparisonResult != 0) {
+                return sizeComparisonResult;
+            } else {
+                return o1.searchTerm().compareTo(o2.searchTerm());
+            }
+        }
     }
 
     private int calculateOccurrencesOfSubstring(Searchable product, String substring) {
