@@ -1,6 +1,7 @@
 package org.skypro.skyshop.search;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class SearchEngine {
     private HashSet<Searchable> elementsForSearch;
@@ -14,13 +15,9 @@ public class SearchEngine {
     }
 
     public TreeSet<Searchable> search(String forSearch) {
-        TreeSet<Searchable> result = new TreeSet<>(new SearchComparator());
-        for (Searchable search : this.elementsForSearch) {
-            if (search != null && search.searchTerm().contains(forSearch)) {
-                result.add(search);
-            }
-        }
-        return result;
+        return this.elementsForSearch.stream()
+                .filter(product -> product.searchTerm().contains(forSearch))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new SearchComparator())));
     }
 
     private static class SearchComparator implements Comparator<Searchable> {
